@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  agiletea.examples.mongodb.api:
+    image: ${DOCKER_REGISTRY-}agileteaexamplesmongodbapi
+    build:
+      context: .
+      dockerfile: src/AgileTea.Examples.MongoDb.Api/Dockerfile
+    ports:
+      - 32890:443 
+    depends_on:
+      - mongo.db.service
+  mongo.db.service:
+    image: mongo:latest
+    ports:
+      - 27117:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:
